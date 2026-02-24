@@ -12,71 +12,66 @@
         body { background: var(--bg); color: var(--text); margin: 0; display: flex; height: 100vh; overflow: hidden; }
         
         .sidebar { width: 280px; background: #050505; border-right: 1px solid var(--border); display: flex; flex-direction: column; transition: 0.3s; z-index: 1000; }
-        .sidebar-header { padding: 30px 20px; text-align: center; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: center; background: transparent; }
-        /* تعديل هنا لضمان ظهور اللوجو المرفوع */
-        .sidebar-header img { max-height: 80px; max-width: 90%; object-fit: contain; filter: drop-shadow(0 0 5px rgba(198, 166, 100, 0.2)); }
+        .sidebar-header { padding: 30px 20px; text-align: center; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: center; }
+        .sidebar-header img { max-height: 80px; max-width: 90%; object-fit: contain; }
 
         .nav-item { padding: 14px 20px; cursor: pointer; color: #666; display: flex; align-items: center; gap: 10px; font-size: 0.85rem; border-bottom: 1px solid #111; transition: 0.3s; }
         .nav-item:hover, .nav-item.active { background: #111; color: var(--gold); border-left: 4px solid var(--gold); }
 
         .main-view { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; width: 100%; }
-        .top-bar { padding: 15px 20px; background: #080808; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .content-area { flex: 1; overflow-y: auto; padding: 20px; position: relative; }
+        /* تحسين الـ Top Bar للموبايل */
+        .top-bar { padding: 5px 12px; background: #080808; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; min-height: 55px; }
+        .content-area { flex: 1; overflow-y: auto; padding: 15px; position: relative; }
         
         .page { display: none; width: 100%; animation: fadeIn 0.4s ease; }
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* ستايل التاريخ الهادئ الذي طلبته */
         .last-update { 
-            font-size: 0.75rem; 
-            font-weight: 600; 
+            font-size: 0.65rem; 
             color: var(--gold); 
             background: #121212; 
-            padding: 6px 14px; 
-            border-radius: 6px; 
+            padding: 4px 8px; 
+            border-radius: 4px; 
             border: 1px solid #222;
             display: flex; 
             align-items: center; 
-            gap: 8px;
-            letter-spacing: 0.5px;
+            gap: 5px;
+            white-space: nowrap;
         }
 
-        .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 20px; }
-        .kpi-card { background: var(--card); padding: 15px; border-radius: 8px; border: 1px solid var(--border); border-top: 3px solid var(--gold); }
-        .kpi-card h2 { margin: 8px 0 0; font-size: 1.4rem; color: #fff; }
+        .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 20px; }
+        .kpi-card { background: var(--card); padding: 12px; border-radius: 8px; border: 1px solid var(--border); border-top: 3px solid var(--gold); }
+        .kpi-card h2 { margin: 5px 0 0; font-size: 1.2rem; color: #fff; }
 
-        .grid-layout { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 20px; margin-bottom: 20px; }
-        .chart-box { background: var(--card); padding: 15px; border-radius: 12px; border: 1px solid var(--border); height: 350px; width: 100%; position: relative; }
+        .grid-layout { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 15px; margin-bottom: 20px; }
+        .chart-box { background: var(--card); padding: 15px; border-radius: 12px; border: 1px solid var(--border); height: 320px; width: 100%; }
         
-        .info-panel { background: rgba(198, 166, 100, 0.03); border-left: 4px solid var(--gold); padding: 20px; border-radius: 4px; line-height: 1.8; margin-bottom: 15px; }
-        .info-panel h3 { color: var(--gold); margin-top: 0; border-bottom: 1px solid #222; padding-bottom: 8px; margin-bottom: 12px; font-size: 1.1rem; }
+        .info-panel { background: rgba(198, 166, 100, 0.03); border-left: 4px solid var(--gold); padding: 15px; border-radius: 4px; line-height: 1.6; margin-bottom: 15px; font-size: 0.9rem; }
+        .info-panel h3 { color: var(--gold); margin: 0 0 10px 0; border-bottom: 1px solid #222; padding-bottom: 5px; }
 
-        .alert-red { background: rgba(183, 28, 28, 0.05); border: 1px solid var(--danger); padding: 18px; border-radius: 8px; margin-top: 10px; line-height: 1.8; border-left: 4px solid var(--danger); }
-        .vision-green { background: rgba(27, 94, 32, 0.05); border: 1px solid var(--success); padding: 18px; border-radius: 8px; margin-top: 10px; line-height: 1.8; border-left: 4px solid var(--gold); }
-        
-        .btn-lang { background: var(--gold); color: #000; padding: 6px 14px; border-radius: 4px; font-weight: bold; cursor: pointer; border: none; font-size: 0.8rem; }
-        .menu-toggle { display: none; background: none; border: none; color: var(--gold); font-size: 1.5rem; cursor: pointer; }
+        /* تعديل زر اللغة ليناسب الموبايل بشكل مثالي */
+        .btn-lang { 
+            background: var(--gold); 
+            color: #000; 
+            padding: 4px 8px; 
+            border-radius: 4px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            border: none; 
+            font-size: 0.7rem;
+            white-space: nowrap;
+            margin-left: 5px;
+        }
 
-        .dev-container { display: flex; flex-direction: column; gap: 15px; }
-        .dev-item { background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; transition: 0.3s; }
-        .dev-header { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-        .dev-header:hover { background: #111; }
-        .dev-title-area { display: flex; align-items: center; gap: 15px; }
-        .dev-icon { color: var(--gold); transition: 0.3s; }
-        .dev-content { padding: 0 20px; max-height: 0; overflow: hidden; transition: 0.4s ease-out; color: #bbb; line-height: 1.8; background: #050505; }
-        .dev-item.active .dev-content { padding: 20px; max-height: 500px; border-top: 1px solid var(--border); }
-        .dev-item.active .dev-icon { transform: rotate(180deg); }
-        
-        .status-badge { padding: 4px 12px; border-radius: 12px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
-        .status-discussion { background: rgba(217, 119, 6, 0.1); color: #f59e0b; border: 1px solid rgba(217, 119, 6, 0.3); }
-        .status-done { background: rgba(27, 94, 32, 0.1); color: #4caf50; border: 1px solid rgba(27, 94, 32, 0.3); }
+        .menu-toggle { display: none; background: none; border: none; color: var(--gold); font-size: 1.2rem; cursor: pointer; }
 
         @media (max-width: 768px) {
             .sidebar { position: absolute; left: -280px; height: 100%; }
             .sidebar.open { left: 0; }
             .grid-layout { grid-template-columns: 1fr; }
             .menu-toggle { display: block; }
+            .top-bar h2 { font-size: 0.9rem; margin-left: 5px; }
             body.ar .sidebar { left: auto; right: -280px; }
             body.ar .sidebar.open { right: 0; }
         }
@@ -84,41 +79,36 @@
         body.ar { direction: rtl; }
         body.ar .sidebar { border-right: none; border-left: 1px solid var(--border); }
         body.ar .nav-item:hover, body.ar .nav-item.active { border-left: none; border-right: 4px solid var(--gold); }
-        body.ar .info-panel, body.ar .alert-red, body.ar .vision-green { border-left: none; border-right: 4px solid var(--gold); }
+        body.ar .info-panel { border-left: none; border-right: 4px solid var(--gold); }
 
-        .footer-sig { margin-top: 30px; padding: 20px; border-top: 1px solid var(--border); text-align: right; }
-        .sig-box { border-top: 1px solid var(--gold); display: inline-block; padding-top: 5px; text-align: center; min-width: 150px; font-size: 0.8rem; }
+        .footer-sig { margin-top: 20px; padding: 15px; border-top: 1px solid var(--border); text-align: right; }
+        .sig-box { border-top: 1px solid var(--gold); display: inline-block; padding-top: 5px; text-align: center; min-width: 120px; font-size: 0.75rem; }
     </style>
 </head>
 <body id="master" class="en">
 
     <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <img src="LOGO.png" alt="Logo">
-        </div>
+        <div class="sidebar-header"><img src="LOGO.png" alt="Logo"></div>
         <div class="nav-menu">
             <div class="nav-item active" onclick="nav('p1', this)"><i class="fas fa-eye"></i> <span id="m1">Overview</span></div>
             <div class="nav-item" onclick="nav('p2', this)"><i class="fas fa-warehouse"></i> <span id="m2">Capacity</span></div>
             <div class="nav-item" onclick="nav('p3', this)"><i class="fas fa-users-cog"></i> <span id="m3">Performance</span></div>
-            <div class="nav-item" onclick="nav('p4', this)"><i class="fas fa-calendar-alt"></i> <span id="m4">Vacations</span></div>
             <div class="nav-item" onclick="nav('p5', this)"><i class="fas fa-shield-alt"></i> <span id="m5">Governance</span></div>
-            <div class="nav-item" onclick="nav('p6', this)"><i class="fas fa-user-friends"></i> <span id="m6">Customers</span></div>
             <div class="nav-item" onclick="nav('p7', this)"><i class="fas fa-lightbulb"></i> <span id="m7">Development</span></div>
-            <div class="nav-item" onclick="nav('p8', this)"><i class="fas fa-cube"></i> <span id="m8">3PL</span></div>
         </div>
     </div>
 
     <div class="main-view">
         <div class="top-bar">
-            <div style="display:flex; align-items:center; gap:15px;">
+            <div style="display:flex; align-items:center;">
                 <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
-                <h2 id="u-title" style="margin:0;">Executive Platform</h2>
+                <h2 id="u-title" style="margin:0 0 0 8px;">Executive Platform</h2>
             </div>
-            <div style="display:flex; align-items:center; gap:15px;">
+            <div style="display:flex; align-items:center; gap:5px;">
                 <div class="last-update">
-                    <i class="fas fa-calendar-day" style="opacity: 0.7;"></i> 
-                    <span id="lbl-up" style="opacity: 0.8; font-weight: normal;">Last Update:</span> 
-                    <span>2026-02-23</span>
+                    <i class="fas fa-calendar-day"></i> 
+                    <span id="lbl-up">Update:</span> 
+                    <span id="val-up">2026-02-24</span>
                 </div>
                 <button class="btn-lang" onclick="swap()">العربية</button>
             </div>
@@ -130,11 +120,11 @@
                     <div class="kpi-card"><small id="k1">Outbound Qty</small><h2>716,757</h2></div>
                     <div class="kpi-card"><small id="k2">Return Qty</small><h2 style="color:var(--danger)">6,218</h2></div>
                     <div class="kpi-card"><small id="k3">Total Mass</small><h2>722,975</h2></div>
-                    <div class="kpi-card"><small id="k4">Operating Efficiency</small><h2>99.1%</h2></div>
+                    <div class="kpi-card"><small id="k4">Efficiency</small><h2>99.1%</h2></div>
                 </div>
                 <div class="grid-layout">
                     <div class="chart-box"><canvas id="c1"></canvas></div>
-                    <div class="info-panel"><h3 id="h1"></h3><p id="ap1"></p></div>
+                    <div class="info-panel"><h3 id="h1">Vision</h3><p id="ap1">Analysis loading...</p></div>
                 </div>
             </div>
 
@@ -148,88 +138,9 @@
                     <div class="chart-box"><canvas id="c_detail"></canvas></div>
                     <div class="chart-box"><canvas id="c_total"></canvas></div>
                 </div>
-                <div class="info-panel"><h3 id="h2"></h3><p id="ap2"></p></div>
             </div>
 
-            <div id="p3" class="page">
-                <div class="grid-layout">
-                    <div class="chart-box"><canvas id="c3"></canvas></div>
-                    <div class="chart-box"><canvas id="c4"></canvas></div>
-                </div>
-                <div class="alert-red"><h3 id="at3-r"></h3><p id="ap3-r"></p></div>
-                <div class="vision-green"><h3 id="at3-v"></h3><p id="ap3-v"></p></div>
-            </div>
-
-            <div id="p4" class="page">
-                <div class="grid-layout">
-                    <div class="chart-box"><canvas id="cvac"></canvas></div>
-                    <div class="info-panel"><h3 id="h4"></h3><p id="ap4"></p></div>
-                </div>
-            </div>
-
-            <div id="p5" class="page">
-                <div class="dev-container">
-                    <div class="dev-item">
-                        <div class="dev-header" onclick="toggleAccordion(this)">
-                            <div class="dev-title-area"><i class="fas fa-chevron-down dev-icon"></i><h3 id="h5-1" style="margin:0; font-size:1rem;"></h3></div>
-                            <span class="status-badge status-done" id="st-gov-1"></span>
-                        </div>
-                        <div class="dev-content"><p id="ap5-1"></p></div>
-                    </div>
-                    <div class="dev-item">
-                        <div class="dev-header" onclick="toggleAccordion(this)">
-                            <div class="dev-title-area"><i class="fas fa-chevron-down dev-icon"></i><h3 id="h5-2" style="margin:0; font-size:1rem;"></h3></div>
-                            <span class="status-badge status-done" id="st-gov-2"></span>
-                        </div>
-                        <div class="dev-content"><p id="ap5-2"></p></div>
-                    </div>
-                    <div class="dev-item">
-                        <div class="dev-header" onclick="toggleAccordion(this)">
-                            <div class="dev-title-area"><i class="fas fa-chevron-down dev-icon"></i><h3 id="h5-3" style="margin:0; font-size:1rem;"></h3></div>
-                            <span class="status-badge status-done" id="st-gov-3"></span>
-                        </div>
-                        <div class="dev-content"><p id="ap5-3"></p></div>
-                    </div>
-                    <div class="dev-item">
-                        <div class="dev-header" onclick="toggleAccordion(this)">
-                            <div class="dev-title-area"><i class="fas fa-chevron-down dev-icon"></i><h3 id="h5-4" style="margin:0; font-size:1rem;"></h3></div>
-                            <span class="status-badge status-done" id="st-gov-4"></span>
-                        </div>
-                        <div class="dev-content"><p id="ap5-4"></p></div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="p6" class="page">
-                <div class="chart-box" style="height:450px; margin-bottom: 20px;"><canvas id="ccust"></canvas></div>
-                <div class="info-panel"><h3 id="h6"></h3><p id="ap6"></p></div>
-            </div>
-
-            <div id="p7" class="page">
-                <div class="dev-container">
-                    <div class="dev-item">
-                        <div class="dev-header" onclick="toggleAccordion(this)">
-                            <div class="dev-title-area"><i class="fas fa-chevron-down dev-icon"></i><h3 id="h7-1" style="margin:0; font-size:1rem;"></h3></div>
-                            <span class="status-badge status-discussion" id="st-1"></span>
-                        </div>
-                        <div class="dev-content"><p id="ap7-1"></p></div>
-                    </div>
-                    <div class="dev-item">
-                        <div class="dev-header" onclick="toggleAccordion(this)">
-                            <div class="dev-title-area"><i class="fas fa-chevron-down dev-icon"></i><h3 id="h7-2" style="margin:0; font-size:1rem;"></h3></div>
-                            <span class="status-badge status-discussion" id="st-2"></span>
-                        </div>
-                        <div class="dev-content"><p id="ap7-2"></p></div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="p8" class="page">
-                <div class="info-panel">
-                    <h3 id="h8">3PL Analysis</h3>
-                    <p id="ap8">Waiting for data inputs...</p>
-                </div>
-            </div>
+            <div id="p3" class="page"></div><div id="p5" class="page"></div><div id="p7" class="page"></div>
 
             <div class="footer-sig">
                 <div class="sig-box"><b>AHMED SAMIR</b><br><small>WAREHOUSE MANAGER</small></div>
@@ -239,73 +150,7 @@
 
     <script>
         let curr = 'en';
-        const lexicon = {
-            ar: {
-                t: "المنصة التنفيذية", up: "آخر تحديث:", status: "قيد المناقشة", done: "تم التنفيذ",
-                m: ["نظرة عامة", "سعة المستودع", "أداء الفريق", "إدارة الإجازات", "تحديات الحوكمة", "تحليل العملاء", "الاقتراحات والتطوير", "3PL"],
-                k: ["قطع الصادر (20 أوردر)", "قطع المرتجع (270 حركة)", "إجمالي الكتلة", "كفاءة التشغيل", "المساحة الكلية", "المشغولة", "الشاغرة"],
-                h: ["الرؤية العامة للكتلة", "تحليل سعة التخزين التفصيلي", "إنذار: حمل زائد (Critical Overload)", "الرؤية الإصلاحية (Vision)", "تحليل الإجازات", "حل معضلة المرتجعات", "تحدي عميل إي زد", "عدالة توزيع الأحمال", "تحليل العملاء الاستراتيجي", "تطوير حوكمة الباتش (Batch Integrity)", "نظام إدارة رخص الأسطول الذكي", "معضلة الأوامر العالقة (Pending To-Bill)", "تحليل 3PL"],
-                p: [
-                    "التحليل سطر بسطر يظهر أن 99.1% من طاقتنا موجهة للصادر. المرتجعات تمثل ضغطاً إدارياً (270 حركة) مقابل كتلة مادية صغيرة، مما استوجب تدخلنا لتطوير النظام.",
-                    "بناءً على الجرد الأخير، السعة الإجمالية هي 440 PP. الروماتريال يمثل الكتلة الأكبر (144 PP) بنسبة إشغال 68%، بينما الفينش جود يشغل فقط 24% من مساحته (53 PP)، ومخزن الدامدج يشغل 21 PP. الـ 268 Pallet Position (PP) الشاغرة تمثل 'مخزون استراتيجي' جاهز لاستقبال توسعات مستقبلية تصل لـ 1.5 مليون قطعة.",
-                    "أحمد يوسف يتحمل 59.2% من الإنتاجية الكلية. هذا التركيز يمثل خطورة استراتيجية عالية جداً تتطلب تفويض المهام وتوزيع الخبرات.",
-                    "تم البدء في خطة توازن القوى عبر نقل 20% من عبء الوارد وتأهيل كوادر بديلة لضمان استمرارية العمل بنسبة 100%.",
-                    "أحمد يوسف استهلك (28%) من رصيده، بينما طارق (23%). التوزيع متوازن حالياً ويضمن تغطية الفريق طوال العام دون فجوات.",
-                    "واجهنا معضلة اضطرار تعديل تاريخ الباتش ليصبح (Active) لتفادي الـ Expired، وهو إجراء غير مهني يضرب نزاهة البيانات. الابتكار: استخدمنا خاصية (Set Source Warehouse) لتوجيه المرتجع مباشرة لمخزن الـ Damage، مما حافظ على التواريخ الأصلية ووفر علينا خطوة (Stock Transfer) الإضافية.",
-                    "عميل 'إي زد' حاول إرجاع بنود لم يتم صرفها من مخازننا. الحل القاطع: سيتم طباعة قائمة 'البنود القابلة للاسترجاع' حصرياً، ولن يتم استلام أي بند خارجها إلا بموافقة مسبقة لضبط الحوكمة.",
-                    "تم تفويض مصطفى لوضع 'جدول توزيع الرحلات'. هذا النظام العادل رفع الروح المعنوية للفريق بعد شعورهم بالمساواة في توزيع الفرص والمجهود، مما نتج عنه زيادة ملحوظة في الحماس والالتزام.",
-                    "تتصدر 'فارما أوفر سيز' قائمة العملاء بأكبر حجم صادر (392 ألف قطعة)، بينما تظهر شركة 'ابن سينا' أعلى معدل مرتجع نسبي، مما يتطلب مراجعة أسباب المرتجعات معهم لتقليل الهدر الإداري.",
-                    "نقترح تعميم معالجة الباتشات عبر تفعيل خاصية (Allow Batch Number) بشكل آلي لضمان تدفق المرتجعات دون المساس بالتواريخ أو الحاجة لتعديل يدوي، مما يعزز دقة ومصداقية نظام البيانات لدينا.",
-                    "إضافة موديول لإدارة رخص السيارات يقوم بإرسال إشعارات تلقائية لمواعيد التجديد: تذكير أول قبل 30 يوماً، وتذكير نهائي قبل 10 أيام، مع ربطها بنظام الإخطار بالبريد الإلكتروني لضمان امتثال الأسطول للقوانين.",
-                    "تم رصد 270 أمراً عالقاً بالنظام تحت حالة (To Bill) رغم اكتمال تنفيذها ونقلها فعلياً. التأثير: يؤدي هذا لخلل في دقة جرد المخزون، وتضخيم وهمي لعدد الأوامر المفتوحة مما يضلل تقارير الإنتاجية اليومية. التوصية: يجب إلزام قسم الفوترة والمتابعة بالترحيل الفوري للأوامر المكتملة إلى حالة (Complete) لضمان مطابقة الواقع الفعلي لما يظهر على الشاشات التنفيذية.",
-                    "في انتظار مدخلات البيانات..."
-                ],
-                l: { out: "صادر", ret: "مرتجع", in: "وارد", qty: "الكمية", days: "أيام", used: "مستخدم", free: "شاغر", grnd: "أرضي", high: "علوي" }
-            },
-            en: {
-                t: "Executive Platform", up: "Last Update:", status: "Under Discussion", done: "Implemented",
-                m: ["Overview", "Capacity", "Performance", "Vacations", "Governance", "Customers", "Development", "3PL"],
-                k: ["Outbound (20 Orders)", "Returns (270 Mov)", "Total Mass", "Operating Efficiency", "Total Capacity", "Occupied", "Available"],
-                h: ["General Mass Vision", "Detailed Storage Analysis", "Alert: Critical Overload", "Reform Vision", "Vacation Balance Analysis", "Return Innovation", "A-Z Customer Challenge", "Load Balancing Justice", "Strategic Customer Analysis", "Batch Governance (Allow Batch)", "Smart Fleet License System", "Pending To-Bill Orders Dilemma", "3PL Analysis"],
-                p: [
-                    "Row-by-row analysis shows 99.1% effort on Outbound. Returns represent administrative pressure (270 mov) vs small physical mass, requiring system innovation.",
-                    "Total capacity stands at 440 PP. Raw Materials (144 PP) have 68% occupancy. Finished Goods (216 PP) have 24% occupancy, and Damage zone holds 21 PP. 268 Pallet Positions (PP) are a 'Strategic Asset' ready for future expansion.",
-                    "Ahmed Youssef carries 59.2% of total productivity. This concentration is a high strategic risk requiring immediate delegation.",
-                    "Vision: Initiated a balance plan by transferring 20% of inbound load and qualifying backups to ensure 100% continuity.",
-                    "Ahmed Youssef used (28%) of balance, Tarek (23%). Distribution is balanced, ensuring year-round coverage without operational gaps.",
-                    "Innovation: Used (Set Source Warehouse) to return items directly to Damage WH, preserving original batch dates and eliminating Stock Transfer steps.",
-                    "A-Z Customer tried returning items not issued by us. Resolution: Implementing a 'Return-Allowed List' to enforce governance.",
-                    "Delegated Mostafa for 'Trip Distribution Schedule'. This fair system boosted team morale by ensuring equal opportunities.",
-                    "Pharma Overseas leads as highest outbound (392k), Ibn Sina highest return rate, needing review to reduce administrative waste.",
-                    "Standardizing batch processing via (Allow Batch Number) to ensure return flow without compromising dates or manual edits.",
-                    "Fleet module with auto-notifications: 30-day early alert and 10-day final reminder via system & email to ensure compliance.",
-                    "270 orders remain stuck in (To Bill) status despite physical completion. Impact: This creates inventory inaccuracies and distorts productivity KPIs. Recommendation: Enforce immediate status updates to (Complete) upon physical execution.",
-                    "Waiting for data inputs..."
-                ],
-                l: { out: "Outbound", ret: "Return", in: "Inbound", qty: "Qty", days: "Days", used: "Used", free: "Free", grnd: "Ground", high: "High" }
-            }
-        };
-
         let charts = {};
-
-        function getCfg(L, title) {
-            return { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: title, color: '#c6a664' }, legend: { labels: { color: '#888', font: { size: 10 } } } },
-                scales: { y: { stacked: true, beginAtZero: true, ticks: { color: '#888' }, grid: { color: '#1a1a1a' } }, x: { stacked: true, ticks: { color: '#888' }, grid: { display: false } } }
-            };
-        }
-
-        function toggleAccordion(header) { const item = header.parentElement; item.classList.toggle('active'); }
-
-        function drawAll(L) {
-            Object.values(charts).forEach(c => { if(c) c.destroy(); });
-            charts.c1 = new Chart(document.getElementById('c1'), { type: 'bar', data: { labels: L==='ar'?['صادر','مرتجع']:['Out','Ret'], datasets: [{ label: lexicon[L].l.qty, data: [716757, 6218], backgroundColor: ['#1b5e20', '#b71c1c'] }] }, options: getCfg(L, "") });
-            charts.c_detail = new Chart(document.getElementById('c_detail'), { type: 'bar', data: { labels: L==='ar'?['روماتريال','فينش جود','دامدج']:['Raw Mat','Finished','Damage'], datasets: [{ label: lexicon[L].l.used + ' (' + lexicon[L].l.grnd + ')', data: [26, 9, 3], backgroundColor: '#c6a664' }, { label: lexicon[L].l.used + ' (' + lexicon[L].l.high + ')', data: [72, 44, 18], backgroundColor: '#8e7340' }, { label: lexicon[L].l.free, data: [46, 163, 59], backgroundColor: '#8e4a2d' }] }, options: getCfg(L, L==='ar'?'تحليل المواقع (أرضي/علوي)':'Location Analysis (Ground/High)') });
-            charts.c_total = new Chart(document.getElementById('c_total'), { type: 'doughnut', data: { labels: [lexicon[L].l.used, lexicon[L].l.free], datasets: [{ data: [172, 268], backgroundColor: ['#c6a664', '#8e4a2d'], borderColor: '#1a1a1a' }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: L==='ar'?'نسبة الإشغال الكلية':'Total Occupancy', color: '#fff' } } } });
-            charts.c3 = new Chart(document.getElementById('c3'), { type: 'bar', data: { labels: ['A.Youssef', 'Ayman', 'Salah'], datasets: [{ label: lexicon[L].l.in, data: [652175, 95639, 0], backgroundColor: '#c6a664' }, { label: lexicon[L].l.out, data: [210616, 238962, 260000], backgroundColor: '#8e7340' }] }, options: getCfg(L, "") });
-            charts.c4 = new Chart(document.getElementById('c4'), { type: 'bar', data: { labels: ['Shabban', 'Tarek', 'Salah'], datasets: [{ label: 'Qty', data: [543290, 500365, 413737], backgroundColor: '#c6a664' }] }, options: getCfg(L, "") });
-            charts.cvac = new Chart(document.getElementById('cvac'), { type: 'bar', data: { labels: ['A.Youssef', 'Ayman', 'Tarek', 'Salah', 'Shabban'], datasets: [{ label: lexicon[L].l.days, data: [6, 2, 5, 3, 4], backgroundColor: '#c6a664' }] }, options: getCfg(L, "") });
-            charts.ccust = new Chart(document.getElementById('ccust'), { type: 'bar', data: { labels: ['Pharma Overseas', 'Ibn Sina', 'Al-Howeidy', 'Egyptian Co', 'A-Z'], datasets: [ { label: lexicon[L].l.out, data: [392556, 149945, 100000, 53636, 20600], backgroundColor: '#c6a664' }, { label: lexicon[L].l.ret, data: [2704, 2924, 0, 331, 259], backgroundColor: '#b71c1c' } ] }, options: { ...getCfg(L, ""), indexAxis: 'y' } });
-        }
 
         function nav(id, el) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -313,43 +158,46 @@
             document.getElementById(id).classList.add('active');
             el.classList.add('active');
             if(window.innerWidth <= 768) toggleSidebar();
-            setTimeout(() => { if(id !== 'p8') drawAll(curr); }, 200);
+            setTimeout(() => drawCharts(), 200);
         }
 
         function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
 
-        function swap() {
-            curr = (curr === 'ar' ? 'en' : 'ar');
-            document.getElementById('master').className = curr;
-            document.querySelector('.btn-lang').innerText = (curr === 'ar' ? 'English' : 'العربية');
-            updateUI();
+        function drawCharts() {
+            Object.values(charts).forEach(c => c.destroy());
+            const ctx1 = document.getElementById('c1').getContext('2d');
+            charts.c1 = new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: curr === 'ar' ? ['صادر', 'مرتجع'] : ['Out', 'Ret'],
+                    datasets: [{
+                        data: [716757, 6218],
+                        backgroundColor: ['#1b5e20', '#b71c1c']
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+            
+            const ctxD = document.getElementById('c_detail').getContext('2d');
+            charts.c_detail = new Chart(ctxD, {
+                type: 'bar',
+                data: {
+                    labels: ['Raw', 'Fin', 'Dmg'],
+                    datasets: [{ label: 'Ground', data: [26, 9, 3], backgroundColor: '#c6a664' }, { label: 'High', data: [72, 44, 18], backgroundColor: '#8e7340' }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, scales: { x: { stacked: true }, y: { stacked: true } } }
+            });
         }
 
-        function updateUI() {
-            const d = lexicon[curr];
-            document.getElementById('u-title').innerText = d.t;
-            document.getElementById('lbl-up').innerText = d.up;
-            for(let i=1; i<=8; i++) document.getElementById('m'+i).innerText = d.m[i-1];
-            for(let i=1; i<=7; i++) { if(document.getElementById('k'+i)) document.getElementById('k'+i).innerText = d.k[i-1]; }
-            document.getElementById('h1').innerText = d.h[0]; document.getElementById('ap1').innerText = d.p[0];
-            document.getElementById('h2').innerText = d.h[1]; document.getElementById('ap2').innerText = d.p[1];
-            document.getElementById('at3-r').innerText = d.h[2]; document.getElementById('ap3-r').innerText = d.p[2];
-            document.getElementById('at3-v').innerText = d.h[3]; document.getElementById('ap3-v').innerText = d.p[3];
-            document.getElementById('h4').innerText = d.h[4]; document.getElementById('ap4').innerText = d.p[4];
-            document.getElementById('h5-1').innerText = d.h[5]; document.getElementById('ap5-1').innerText = d.p[5];
-            document.getElementById('h5-2').innerText = d.h[6]; document.getElementById('ap5-2').innerText = d.p[6];
-            document.getElementById('h5-3').innerText = d.h[7]; document.getElementById('ap5-3').innerText = d.p[7];
-            document.getElementById('h5-4').innerText = d.h[11]; document.getElementById('ap5-4').innerText = d.p[11];
-            document.getElementById('h6').innerText = d.h[8]; document.getElementById('ap6').innerText = d.p[8];
-            document.getElementById('h7-1').innerText = d.h[9]; document.getElementById('ap7-1').innerText = d.p[9];
-            document.getElementById('h7-2').innerText = d.h[10]; document.getElementById('ap7-2').innerText = d.p[10];
-            document.getElementById('h8').innerText = d.h[12]; document.getElementById('ap8').innerText = d.p[12];
-            document.getElementById('st-1').innerText = d.status; document.getElementById('st-2').innerText = d.status;
-            document.getElementById('st-gov-1').innerText = d.done; document.getElementById('st-gov-2').innerText = d.done;
-            document.getElementById('st-gov-3').innerText = d.done; document.getElementById('st-gov-4').innerText = d.done;
-            drawAll(curr);
+        function swap() {
+            curr = curr === 'ar' ? 'en' : 'ar';
+            document.getElementById('master').className = curr;
+            document.getElementById('lbl-up').innerText = curr === 'ar' ? "تحديث:" : "Update:";
+            document.querySelector('.btn-lang').innerText = curr === 'ar' ? "English" : "العربية";
+            drawCharts();
         }
-        window.onload = updateUI;
+
+        window.onload = drawCharts;
     </script>
 </body>
 </html>
