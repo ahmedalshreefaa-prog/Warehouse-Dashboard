@@ -13,7 +13,6 @@
         
         .sidebar { width: 280px; background: #050505; border-right: 1px solid var(--border); display: flex; flex-direction: column; transition: 0.3s; z-index: 1000; }
         .sidebar-header { padding: 30px 20px; text-align: center; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: center; background: transparent; }
-        /* تحسين عرض اللوجو لضمان الظهور */
         .sidebar-header img { max-height: 80px; max-width: 100%; object-fit: contain; filter: drop-shadow(0 0 5px rgba(198, 166, 100, 0.2)); }
 
         .nav-item { padding: 14px 20px; cursor: pointer; color: #666; display: flex; align-items: center; gap: 10px; font-size: 0.85rem; border-bottom: 1px solid #111; transition: 0.3s; }
@@ -120,7 +119,7 @@
                 <div class="last-update">
                     <i class="fas fa-calendar-day" style="opacity: 0.7;"></i> 
                     <span id="lbl-up" style="opacity: 0.8; font-weight: normal;">Last Update:</span> 
-                    <span>2026-02-24</span>
+                    <span>2026-02-28</span>
                 </div>
                 <button class="btn-lang" onclick="swap()">العربية</button>
             </div>
@@ -227,10 +226,21 @@
             </div>
 
             <div id="p8" class="page">
-                <div class="info-panel">
-                    <h3 id="h8">3PL Analysis</h3>
-                    <p id="ap8">Waiting for data inputs...</p>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 style="color: var(--gold); margin: 0;">MTS-MED <span class="status-badge status-done" style="font-size: 0.6rem; vertical-align: middle;">Active Account</span></h2>
                 </div>
+                <div class="kpi-row">
+                    <div class="kpi-card"><small id="k8-1">Total Revenue</small><h2>84,188.5</h2></div>
+                    <div class="kpi-card"><small id="k8-2">Total Movements</small><h2>65,992</h2></div>
+                    <div class="kpi-card"><small id="k8-3">Inbound Qty</small><h2>34,445</h2></div>
+                    <div class="kpi-card"><small id="k8-4">Outbound Qty</small><h2>25,859</h2></div>
+                </div>
+                <div class="grid-layout">
+                    <div class="chart-box"><canvas id="c3pl_rev"></canvas></div>
+                    <div class="chart-box"><canvas id="c3pl_mix"></canvas></div>
+                </div>
+                <div class="info-panel"><h3 id="h8-1">Strategic Performance Analysis</h3><p id="ap8-1"></p></div>
+                <div class="vision-green"><h3 id="h8-2">Future Vision & Trend Analysis</h3><p id="ap8-2"></p></div>
             </div>
 
             <div class="footer-sig">
@@ -244,9 +254,9 @@
         const lexicon = {
             ar: {
                 t: "المنصة التنفيذية", up: "آخر تحديث:", status: "قيد المناقشة", done: "تم التنفيذ",
-                m: ["نظرة عامة", "سعة المستودع", "أداء الفريق", "إدارة الإجازات", "تحديات الحوكمة", "تحليل العملاء", "الاقتراحات والتطوير", "3PL"],
-                k: ["قطع الصادر (20 أوردر)", "قطع المرتجع (270 حركة)", "إجمالي الكتلة", "كفاءة التشغيل", "المساحة الكلية", "المشغولة", "الشاغرة"],
-                h: ["الرؤية العامة للكتلة", "تحليل سعة التخزين التفصيلي", "إنذار: حمل زائد (Critical Overload)", "الرؤية الإصلاحية (Vision)", "تحليل الإجازات", "حل معضلة المرتجعات", "تحدي عميل إي زد", "عدالة توزيع الأحمال", "تحليل العملاء الاستراتيجي", "تطوير حوكمة الباتش (Batch Integrity)", "نظام إدارة رخص الأسطول الذكي", "معضلة الأوامر العالقة (Pending To-Bill)", "تحليل 3PL"],
+                m: ["نظرة عامة", "سعة المستودع", "أداء الفريق", "إدارة الإجازات", "تحديات الحوكمة", "تحليل العملاء", "الاقتراحات والتطوير", "تحليل 3PL"],
+                k: ["قطع الصادر (20 أوردر)", "قطع المرتجع (270 حركة)", "إجمالي الكتلة", "كفاءة التشغيل", "المساحة الكلية", "المشغولة", "الشاغرة", "إجمالي الإيرادات (EGP)", "إجمالي الحركات", "إجمالي الوارد", "إجمالي الصادر"],
+                h: ["الرؤية العامة للكتلة", "تحليل سعة التخزين التفصيلي", "إنذار: حمل زائد (Critical Overload)", "الرؤية الإصلاحية (Vision)", "تحليل الإجازات", "حل معضلة المرتجعات", "تحدي عميل إي زد", "عدالة توزيع الأحمال", "تحليل العملاء الاستراتيجي", "تطوير حوكمة الباتش (Batch Integrity)", "نظام إدارة رخص الأسطول الذكي", "معضلة الأوامر العالقة (Pending To-Bill)", "تحليل أداء MTS-MED", "الرؤية المستقبلية ونمط النمو"],
                 p: [
                     "التحليل سطر بسطر يظهر أن 99.1% من طاقتنا موجهة للصادر. المرتجعات تمثل ضغطاً إدارياً (270 حركة) مقابل كتلة مادية صغيرة، مما استوجب تدخلنا لتطوير النظام.",
                     "بناءً على الجرد الأخير، السعة الإجمالية هي 440 PP. الروماتريال يمثل الكتلة الأكبر (144 PP) بنسبة إشغال 68%، بينما الفينش جود يشغل فقط 24% من مساحته (53 PP)، ومخزن الدامدج يشغل 21 PP. الـ 268 Pallet Position (PP) الشاغرة تمثل 'مخزون استراتيجي' جاهز لاستقبال توسعات مستقبلية تصل لـ 1.5 مليون قطعة.",
@@ -260,15 +270,16 @@
                     "نقترح تعميم معالجة الباتشات عبر تفعيل خاصية (Allow Batch Number) بشكل آلي لضمان تدفق المرتجعات دون المساس بالتواريخ أو الحاجة لتعديل يدوي، مما يعزز دقة ومصداقية نظام البيانات لدينا.",
                     "إضافة موديول لإدارة رخص السيارات يقوم بإرسال إشعارات تلقائية لمواعيد التجديد: تذكير أول قبل 30 يوماً، وتذكير نهائي قبل 10 أيام، مع ربطها بنظام الإخطار بالبريد الإلكتروني لضمان امتثال الأسطول للقوانين.",
                     "تم رصد 270 أمراً عالقاً بالنظام تحت حالة (To Bill) رغم اكتمال تنفيذها ونقلها فعلياً. التأثير: يؤدي هذا لخلل في دقة جرد المخزون، وتضخيم وهمي لعدد الأوامر المفتوحة مما يضلل تقارير الإنتاجية اليومية. التوصية: يجب إلزام قسم الفوترة والمتابعة بالترحيل الفوري للأوامر المكتملة إلى حالة (Complete) لضمان مطابقة الواقع الفعلي لما يظهر على الشاشات التنفيذية.",
-                    "في انتظار مدخلات البيانات..."
+                    "نجحنا في تحقيق إجمالي إيرادات بقيمة 84,188.5 جنيه من العميل MTS-MED، مع إدارة كتلة ضخمة بلغت 65,992 حركة. التحليل الدقيق يظهر تنوعاً كبيراً في الأنشطة اللوجستية شملت التخزين، التعبئة، الفحص (QC)، والنقل، مما يعكس الثقة التشغيلية الكاملة الممنوحة من العميل.",
+                    "النمط الحالي يظهر استقراراً قوياً في شهري أكتوبر وديسمبر، بينما يميل للهدوء النسبي في يناير وفبراير. الرؤية: العميل يتبع نمطاً موسمياً متصاعداً؛ لذا نستهدف في الفترة القادمة تعزيز خدمات القيمة المضافة لضمان استقرار التدفق المالي حتى في فترات انخفاض حركة الشحن."
                 ],
-                l: { out: "صادر", ret: "مرتجع", in: "وارد", qty: "الكمية", days: "أيام", used: "مستخدم", free: "شاغر", grnd: "أرضي", high: "علوي" }
+                l: { out: "صادر", ret: "مرتجع", in: "وارد", qty: "الكمية", days: "أيام", used: "مستخدم", free: "شاغر", grnd: "أرضي", high: "علوي", rev: "الإيراد" }
             },
             en: {
                 t: "Executive Platform", up: "Last Update:", status: "Under Discussion", done: "Implemented",
-                m: ["Overview", "Capacity", "Performance", "Vacations", "Governance", "Customers", "Development", "3PL"],
-                k: ["Outbound (20 Orders)", "Returns (270 Mov)", "Total Mass", "Operating Efficiency", "Total Capacity", "Occupied", "Available"],
-                h: ["General Mass Vision", "Detailed Storage Analysis", "Alert: Critical Overload", "Reform Vision", "Vacation Balance Analysis", "Return Innovation", "A-Z Customer Challenge", "Load Balancing Justice", "Strategic Customer Analysis", "Batch Governance (Allow Batch)", "Smart Fleet License System", "Pending To-Bill Orders Dilemma", "3PL Analysis"],
+                m: ["Overview", "Capacity", "Performance", "Vacations", "Governance", "Customers", "Development", "3PL Analysis"],
+                k: ["Outbound (20 Orders)", "Returns (270 Mov)", "Total Mass", "Operating Efficiency", "Total Capacity", "Occupied", "Available", "Total Revenue (EGP)", "Total Movements", "Inbound Qty", "Outbound Qty"],
+                h: ["General Mass Vision", "Detailed Storage Analysis", "Alert: Critical Overload", "Reform Vision", "Vacation Balance Analysis", "Return Innovation", "A-Z Customer Challenge", "Load Balancing Justice", "Strategic Customer Analysis", "Batch Governance (Allow Batch)", "Smart Fleet License System", "Pending To-Bill Orders Dilemma", "MTS-MED Performance Analysis", "Future Vision & Trend Analysis"],
                 p: [
                     "Row-by-row analysis shows 99.1% effort on Outbound. Returns represent administrative pressure (270 mov) vs small physical mass, requiring system innovation.",
                     "Total capacity stands at 440 PP. Raw Materials (144 PP) have 68% occupancy. Finished Goods (216 PP) have 24% occupancy, and Damage zone holds 21 PP. 268 Pallet Positions (PP) are a 'Strategic Asset' ready for future expansion.",
@@ -282,9 +293,10 @@
                     "Standardizing batch processing via (Allow Batch Number) to ensure return flow without compromising dates or manual edits.",
                     "Fleet module with auto-notifications: 30-day early alert and 10-day final reminder via system & email to ensure compliance.",
                     "270 orders remain stuck in (To Bill) status despite physical completion. Impact: This creates inventory inaccuracies and distorts productivity KPIs. Recommendation: Enforce immediate status updates to (Complete) upon physical execution.",
-                    "Waiting for data inputs..."
+                    "Successfully achieved a total revenue of 84,188.5 EGP from MTS-MED, managing 65,992 movements. Analysis reflects a diverse range of activities including storage, repacking, QC, and transport, showcasing full operational trust.",
+                    "Current trend shows strong stability in Oct and Dec, leaning towards relative calm in Jan and Feb. Vision: Account follows a seasonal upward trend; aiming to boost Value-Added Services to ensure steady financial flow during low-shipment periods."
                 ],
-                l: { out: "Outbound", ret: "Return", in: "Inbound", qty: "Qty", days: "Days", used: "Used", free: "Free", grnd: "Ground", high: "High" }
+                l: { out: "Outbound", ret: "Return", in: "Inbound", qty: "Qty", days: "Days", used: "Used", free: "Free", grnd: "Ground", high: "High", rev: "Revenue" }
             }
         };
 
@@ -292,7 +304,7 @@
 
         function getCfg(L, title) {
             return { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: title, color: '#c6a664' }, legend: { labels: { color: '#888', font: { size: 10 } } } },
-                scales: { y: { stacked: true, beginAtZero: true, ticks: { color: '#888' }, grid: { color: '#1a1a1a' } }, x: { stacked: true, ticks: { color: '#888' }, grid: { display: false } } }
+                scales: { y: { stacked: true, beginAtZero: true, ticks: { color: '#888' }, grid: { color: '#1a1a1a' } }, x: { ticks: { color: '#888' }, grid: { display: false } } }
             };
         }
 
@@ -307,6 +319,10 @@
             charts.c4 = new Chart(document.getElementById('c4'), { type: 'bar', data: { labels: ['Shabban', 'Tarek', 'Salah'], datasets: [{ label: 'Qty', data: [543290, 500365, 413737], backgroundColor: '#c6a664' }] }, options: getCfg(L, "") });
             charts.cvac = new Chart(document.getElementById('cvac'), { type: 'bar', data: { labels: ['A.Youssef', 'Ayman', 'Tarek', 'Salah', 'Shabban'], datasets: [{ label: lexicon[L].l.days, data: [6, 2, 5, 3, 4], backgroundColor: '#c6a664' }] }, options: getCfg(L, "") });
             charts.ccust = new Chart(document.getElementById('ccust'), { type: 'bar', data: { labels: ['Pharma Overseas', 'Ibn Sina', 'Al-Howeidy', 'Egyptian Co', 'A-Z'], datasets: [ { label: lexicon[L].l.out, data: [392556, 149945, 100000, 53636, 20600], backgroundColor: '#c6a664' }, { label: lexicon[L].l.ret, data: [2704, 2924, 0, 331, 259], backgroundColor: '#b71c1c' } ] }, options: { ...getCfg(L, ""), indexAxis: 'y' } });
+            
+            // 3PL Specific Charts for MTS-MED
+            charts.c3pl_rev = new Chart(document.getElementById('c3pl_rev'), { type: 'line', data: { labels: ['Aug','Sep','Oct','Nov','Dec','Jan','Feb'], datasets: [{ label: lexicon[L].l.rev, data: [4717.5, 12590, 14825, 12675, 15845, 13587, 9949], borderColor: '#c6a664', tension: 0.3, fill: true, backgroundColor: 'rgba(198, 166, 100, 0.1)' }] }, options: getCfg(L, L==='ar'?'نمط الإيرادات الشهري':'Monthly Revenue Trend') });
+            charts.c3pl_mix = new Chart(document.getElementById('c3pl_mix'), { type: 'bar', data: { labels: ['Aug','Sep','Oct','Nov','Dec','Jan','Feb'], datasets: [{ label: lexicon[L].l.in, data: [7182, 20628, 0, 0, 6635, 0, 0], backgroundColor: '#c6a664' }, { label: lexicon[L].l.out, data: [1213, 8560, 3792, 0, 3441, 5907, 2946], backgroundColor: '#8e7340' }, { label: lexicon[L].l.ret, data: [0, 0, 3058, 2630, 0, 0, 0], backgroundColor: '#b71c1c' }] }, options: getCfg(L, L==='ar'?'مقارنة الحركة (وارد/صادر/مرتجع)':'Movement Mix (In/Out/Ret)') });
         }
 
         function nav(id, el) {
@@ -315,7 +331,7 @@
             document.getElementById(id).classList.add('active');
             el.classList.add('active');
             if(window.innerWidth <= 768) toggleSidebar();
-            setTimeout(() => { if(id !== 'p8') drawAll(curr); }, 200);
+            setTimeout(() => { drawAll(curr); }, 200);
         }
 
         function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
@@ -333,6 +349,17 @@
             document.getElementById('lbl-up').innerText = d.up;
             for(let i=1; i<=8; i++) document.getElementById('m'+i).innerText = d.m[i-1];
             for(let i=1; i<=7; i++) { if(document.getElementById('k'+i)) document.getElementById('k'+i).innerText = d.k[i-1]; }
+            
+            // 3PL Update UI
+            document.getElementById('k8-1').innerText = d.k[7];
+            document.getElementById('k8-2').innerText = d.k[8];
+            document.getElementById('k8-3').innerText = d.k[9];
+            document.getElementById('k8-4').innerText = d.k[10];
+            document.getElementById('h8-1').innerText = d.h[12];
+            document.getElementById('ap8-1').innerText = d.p[12];
+            document.getElementById('h8-2').innerText = d.h[13];
+            document.getElementById('ap8-2').innerText = d.p[13];
+
             document.getElementById('h1').innerText = d.h[0]; document.getElementById('ap1').innerText = d.p[0];
             document.getElementById('h2').innerText = d.h[1]; document.getElementById('ap2').innerText = d.p[1];
             document.getElementById('at3-r').innerText = d.h[2]; document.getElementById('ap3-r').innerText = d.p[2];
@@ -345,7 +372,7 @@
             document.getElementById('h6').innerText = d.h[8]; document.getElementById('ap6').innerText = d.p[8];
             document.getElementById('h7-1').innerText = d.h[9]; document.getElementById('ap7-1').innerText = d.p[9];
             document.getElementById('h7-2').innerText = d.h[10]; document.getElementById('ap7-2').innerText = d.p[10];
-            document.getElementById('h8').innerText = d.h[12]; document.getElementById('ap8').innerText = d.p[12];
+            
             document.getElementById('st-1').innerText = d.status; document.getElementById('st-2').innerText = d.status;
             document.getElementById('st-gov-1').innerText = d.done; document.getElementById('st-gov-2').innerText = d.done;
             document.getElementById('st-gov-3').innerText = d.done; document.getElementById('st-gov-4').innerText = d.done;
