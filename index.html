@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Executive Platform | AHMED SAMIR</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --bg: #010101; --card: #090909; --gold: #c6a664; --copper: #8e4a2d; --text: #e0e0e0; --border: #1a1a1a; --danger: #b71c1c; --success: #1b5e20; }
+        :root { --bg: #010101; --card: #090909; --gold: #c6a664; --copper: #8e4a2d; --text: #e0e0e0; --border: #1a1a1a; --danger: #ff0000; --success: #1b5e20; }
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
         body { background: var(--bg); color: var(--text); margin: 0; display: flex; height: 100vh; overflow: hidden; }
         
@@ -50,7 +51,7 @@
         .info-panel { background: rgba(198, 166, 100, 0.03); border-left: 4px solid var(--gold); padding: 20px; border-radius: 4px; line-height: 1.8; margin-bottom: 15px; }
         .info-panel h3 { color: var(--gold); margin-top: 0; border-bottom: 1px solid #222; padding-bottom: 8px; margin-bottom: 12px; font-size: 1.1rem; }
 
-        .alert-red { background: rgba(183, 28, 28, 0.05); border: 1px solid var(--danger); padding: 18px; border-radius: 8px; margin-top: 10px; line-height: 1.8; border-left: 4px solid var(--danger); }
+        .alert-red { background: rgba(255, 0, 0, 0.05); border: 1px solid var(--danger); padding: 18px; border-radius: 8px; margin-top: 10px; line-height: 1.8; border-left: 4px solid var(--danger); }
         .vision-green { background: rgba(27, 94, 32, 0.05); border: 1px solid var(--success); padding: 18px; border-radius: 8px; margin-top: 10px; line-height: 1.8; border-left: 4px solid var(--gold); }
         
         .btn-lang { background: var(--gold); color: #000; padding: 6px 14px; border-radius: 4px; font-weight: bold; cursor: pointer; border: none; font-size: 0.8rem; }
@@ -65,7 +66,7 @@
         .dev-content { padding: 0 20px; max-height: 0; overflow: hidden; transition: 0.4s ease-out; color: #bbb; line-height: 1.8; background: #050505; }
         .dev-item.active .dev-content { padding: 20px; max-height: 500px; border-top: 1px solid var(--border); }
         .dev-item.active .dev-icon { transform: rotate(180deg); }
-        
+
         .status-badge { padding: 4px 12px; border-radius: 12px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
         .status-discussion { background: rgba(217, 119, 6, 0.1); color: #f59e0b; border: 1px solid rgba(217, 119, 6, 0.3); }
         .status-done { background: rgba(27, 94, 32, 0.1); color: #4caf50; border: 1px solid rgba(27, 94, 32, 0.3); }
@@ -119,7 +120,7 @@
                 <div class="last-update">
                     <i class="fas fa-calendar-day" style="opacity: 0.7;"></i> 
                     <span id="lbl-up" style="opacity: 0.8; font-weight: normal;">Last Update:</span> 
-                    <span>2026-02-28</span>
+                    <span>2026-03-01</span>
                 </div>
                 <button class="btn-lang" onclick="swap()">العربية</button>
             </div>
@@ -158,10 +159,15 @@
                     <div class="chart-box"><canvas id="c4"></canvas></div>
                 </div>
                 <div class="alert-red"><h3 id="at3-r"></h3><p id="ap3-r"></p></div>
-                <div class="vision-green"><h3 id="at3-v"></h3><p id="ap3-v"></p></div>
+                <div class="vision-green"><h3 id="h3-v"></h3><p id="ap3-v"></p></div>
             </div>
 
             <div id="p4" class="page">
+                <div class="kpi-row">
+                    <div class="kpi-card"><small id="kv-1">Total Team Leaves</small><h2>22 Days</h2></div>
+                    <div class="kpi-card"><small id="kv-2">Highest Consumption</small><h2>Mostafa (6)</h2></div>
+                    <div class="kpi-card"><small id="kv-3">Lowest Consumption</small><h2>Salah (1)</h2></div>
+                </div>
                 <div class="grid-layout">
                     <div class="chart-box"><canvas id="cvac"></canvas></div>
                     <div class="info-panel"><h3 id="h4"></h3><p id="ap4"></p></div>
@@ -229,18 +235,23 @@
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                     <h2 style="color: var(--gold); margin: 0;">MTS-MED <span class="status-badge status-done" style="font-size: 0.6rem; vertical-align: middle;">Active Account</span></h2>
                 </div>
-                <div class="kpi-row">
-                    <div class="kpi-card"><small id="k8-1">Total Revenue</small><h2>84,188.5</h2></div>
-                    <div class="kpi-card"><small id="k8-2">Total Movements</small><h2>65,992</h2></div>
-                    <div class="kpi-card"><small id="k8-3">Inbound Qty</small><h2>34,445</h2></div>
-                    <div class="kpi-card"><small id="k8-4">Outbound Qty</small><h2>25,859</h2></div>
+                <div class="kpi-row" style="grid-template-columns: repeat(3, 1fr);">
+                    <div class="kpi-card"><small id="k8-1">Total Revenue</small><h2>60,038.5</h2></div>
+                    <div class="kpi-card"><small id="k8-2">Activity Revenue</small><h2>35,888.5</h2></div>
+                    <div class="kpi-card"><small id="k8-3">Storage Revenue</small><h2>24,150.0</h2></div>
                 </div>
                 <div class="grid-layout">
                     <div class="chart-box"><canvas id="c3pl_rev"></canvas></div>
                     <div class="chart-box"><canvas id="c3pl_mix"></canvas></div>
                 </div>
-                <div class="info-panel"><h3 id="h8-1">Strategic Performance Analysis</h3><p id="ap8-1"></p></div>
-                <div class="vision-green"><h3 id="h8-2">Future Vision & Trend Analysis</h3><p id="ap8-2"></p></div>
+                <div class="grid-layout">
+                    <div class="chart-box"><canvas id="c3pl_storage_vol"></canvas></div>
+                    <div class="chart-box"><canvas id="c3pl_rev_split"></canvas></div>
+                </div>
+                <div class="chart-box" style="margin-bottom: 20px; height: 400px;"><canvas id="c3pl_act_monthly"></canvas></div>
+                
+                <div class="info-panel"><h3 id="h8-1">Cost-Benefit Activity Analysis</h3><p id="ap8-1"></p></div>
+                <div class="vision-green"><h3 id="h8-2">Profit Optimization Strategy</h3><p id="ap8-2"></p></div>
             </div>
 
             <div class="footer-sig">
@@ -250,19 +261,20 @@
     </div>
 
     <script>
+        Chart.register(ChartDataLabels);
         let curr = 'en';
         const lexicon = {
             ar: {
                 t: "المنصة التنفيذية", up: "آخر تحديث:", status: "قيد المناقشة", done: "تم التنفيذ",
                 m: ["نظرة عامة", "سعة المستودع", "أداء الفريق", "إدارة الإجازات", "تحديات الحوكمة", "تحليل العملاء", "الاقتراحات والتطوير", "تحليل 3PL"],
-                k: ["قطع الصادر (20 أوردر)", "قطع المرتجع (270 حركة)", "إجمالي الكتلة", "كفاءة التشغيل", "المساحة الكلية", "المشغولة", "الشاغرة", "إجمالي الإيرادات (EGP)", "إجمالي الحركات", "إجمالي الوارد", "إجمالي الصادر"],
-                h: ["الرؤية العامة للكتلة", "تحليل سعة التخزين التفصيلي", "إنذار: حمل زائد (Critical Overload)", "الرؤية الإصلاحية (Vision)", "تحليل الإجازات", "حل معضلة المرتجعات", "تحدي عميل إي زد", "عدالة توزيع الأحمال", "تحليل العملاء الاستراتيجي", "تطوير حوكمة الباتش (Batch Integrity)", "نظام إدارة رخص الأسطول الذكي", "معضلة الأوامر العالقة (Pending To-Bill)", "تحليل أداء MTS-MED", "الرؤية المستقبلية ونمط النمو"],
+                k: ["قطع الصادر (20 أوردر)", "قطع المرتجع (270 حركة)", "إجمالي الكتلة", "كفاءة التشغيل", "المساحة الكلية", "المشغولة", "الشاغرة", "إجمالي الإيرادات (EGP)", "إيراد الأنشطة", "إيراد التخزين"],
+                h: ["الرؤية العامة للكتلة", "تحليل سعة التخزين التفصيلي", "إنذار: حمل زائد (Critical Overload)", "الرؤية الإصلاحية (Vision)", "تحليل الإجازات السنوية المستهلكة", "حل معضلة المرتجعات", "تحدي عميل إي زد", "عدالة توزيع الأحمال", "تحليل العملاء الاستراتيجي", "تطوير حوكمة الباتش (Batch Integrity)", "نظام إدارة رخص الأسطول الذكي", "معضلة الأوامر العالقة (Pending To-Bill)", "تحليل ربحية MTS-MED (Gross vs Net)", "استراتيجية تعظيم الربح الصافي"],
                 p: [
                     "التحليل سطر بسطر يظهر أن 99.1% من طاقتنا موجهة للصادر. المرتجعات تمثل ضغطاً إدارياً (270 حركة) مقابل كتلة مادية صغيرة، مما استوجب تدخلنا لتطوير النظام.",
                     "بناءً على الجرد الأخير، السعة الإجمالية هي 440 PP. الروماتريال يمثل الكتلة الأكبر (144 PP) بنسبة إشغال 68%، بينما الفينش جود يشغل فقط 24% من مساحته (53 PP)، ومخزن الدامدج يشغل 21 PP. الـ 268 Pallet Position (PP) الشاغرة تمثل 'مخزون استراتيجي' جاهز لاستقبال توسعات مستقبلية تصل لـ 1.5 مليون قطعة.",
                     "أحمد يوسف يتحمل 59.2% من الإنتاجية الكلية. هذا التركيز يمثل خطورة استراتيجية عالية جداً تتطلب تفويض المهام وتوزيع الخبرات.",
                     "تم البدء في خطة توازن القوى عبر نقل 20% من عبء الوارد وتأهيل كوادر بديلة لضمان استمرارية العمل بنسبة 100%.",
-                    "أحمد يوسف استهلك (28%) من رصيده، بينما طارق (23%). التوزيع متوازن حالياً ويضمن تغطية الفريق طوال العام دون فجوات.",
+                    "بناءً على سجلات الإجازات (Annual)، استهلك الفريق إجمالي 22 يوماً. يتصدر مصطفى إدريس بـ 6 أيام، يليه أحمد يوسف بـ 5 أيام، بينما صلاح حسن هو الأقل استهلاكاً بـ يوم واحد فقط. التوزيع الحالي يتيح مرونة عالية لتغطية ضعم العمل في الفترات القادمة.",
                     "واجهنا معضلة اضطرار تعديل تاريخ الباتش ليصبح (Active) لتفادي الـ Expired، وهو إجراء غير مهني يضرب نزاهة البيانات. الابتكار: استخدمنا خاصية (Set Source Warehouse) لتوجيه المرتجع مباشرة لمخزن الـ Damage، مما حافظ على التواريخ الأصلية ووفر علينا خطوة (Stock Transfer) الإضافية.",
                     "عميل 'إي زد' حاول إرجاع بنود لم يتم صرفها من مخازننا. الحل القاطع: سيتم طباعة قائمة 'البنود القابلة للاسترجاع' حصرياً، ولن يتم استلام أي بند خارجها إلا بموافقة مسبقة لضبط الحوكمة.",
                     "تم تفويض مصطفى لوضع 'جدول توزيع الرحلات'. هذا النظام العادل رفع الروح المعنوية للفريق بعد شعورهم بالمساواة في توزيع الفرص والمجهود، مما نتج عنه زيادة ملحوظة في الحماس والالتزام.",
@@ -270,22 +282,22 @@
                     "نقترح تعميم معالجة الباتشات عبر تفعيل خاصية (Allow Batch Number) بشكل آلي لضمان تدفق المرتجعات دون المساس بالتواريخ أو الحاجة لتعديل يدوي، مما يعزز دقة ومصداقية نظام البيانات لدينا.",
                     "إضافة موديول لإدارة رخص السيارات يقوم بإرسال إشعارات تلقائية لمواعيد التجديد: تذكير أول قبل 30 يوماً، وتذكير نهائي قبل 10 أيام، مع ربطها بنظام الإخطار بالبريد الإلكتروني لضمان امتثال الأسطول للقوانين.",
                     "تم رصد 270 أمراً عالقاً بالنظام تحت حالة (To Bill) رغم اكتمال تنفيذها ونقلها فعلياً. التأثير: يؤدي هذا لخلل في دقة جرد المخزون، وتضخيم وهمي لعدد الأوامر المفتوحة مما يضلل تقارير الإنتاجية اليومية. التوصية: يجب إلزام قسم الفوترة والمتابعة بالترحيل الفوري للأوامر المكتملة إلى حالة (Complete) لضمان مطابقة الواقع الفعلي لما يظهر على الشاشات التنفيذية.",
-                    "نجحنا في تحقيق إجمالي إيرادات بقيمة 84,188.5 جنيه من العميل MTS-MED، مع إدارة كتلة ضخمة بلغت 65,992 حركة. التحليل الدقيق يظهر تنوعاً كبيراً في الأنشطة اللوجستية شملت التخزين، التعبئة، الفحص (QC)، والنقل، مما يعكس الثقة التشغيلية الكاملة الممنوحة من العميل.",
-                    "النمط الحالي يظهر استقراراً قوياً في شهري أكتوبر وديسمبر، بينما يميل للهدوء النسبي في يناير وفبراير. الرؤية: العميل يتبع نمطاً موسمياً متصاعداً؛ لذا نستهدف في الفترة القادمة تعزيز خدمات القيمة المضافة لضمان استقرار التدفق المالي حتى في فترات انخفاض حركة الشحن."
+                    "تحليل الربحية لـ MTS-MED يوضح أن إيرادات 'النقل' (18,300 EGP) هي إيراد تشغيلي إجمالي (Gross) وليس ربحاً صافياً، حيث تخضع لمصاريف التشغيل العالية. بينما يمثل إيراد 'التخزين' (24,150 EGP) الربح الحقيقي المستقر للحساب، مع ملاحظة زيادة التعريفة في يناير لـ 600 ج.م.",
+                    "الرؤية الاستراتيجية: يجب فرض 'حد أدنى للمحاسبة' (Minimum Storage) لضمان ربحية المساحة حتى في حالات انخفاض المخزون. أما بالنسبة للنقل، فالتحدي هو تقليص الفجوة بين الإيراد التشغيلي والتكلفة لرفع صافي الربح من الرحلات."
                 ],
-                l: { out: "صادر", ret: "مرتجع", in: "وارد", qty: "الكمية", days: "أيام", used: "مستخدم", free: "شاغر", grnd: "أرضي", high: "علوي", rev: "الإيراد" }
+                l: { out: "صادر", ret: "مرتجع", in: "وارد", qty: "الكمية", days: "أيام", used: "مستخدم", free: "شاغر", grnd: "أرضي", high: "علوي", rev: "الإيراد", st: "تخزين", act: "أنشطة", pp: "PP", trans: "نقل", pick: "تقطيف", h_in: "تداول وارد", h_out: "تداول صادر", qc: "جودة", repack: "تغليف", stretch: "ستريتش", act_title: "تفاصيل الأنشطة شهرياً (النقل هو الأعلى إيراداً)" }
             },
             en: {
                 t: "Executive Platform", up: "Last Update:", status: "Under Discussion", done: "Implemented",
                 m: ["Overview", "Capacity", "Performance", "Vacations", "Governance", "Customers", "Development", "3PL Analysis"],
-                k: ["Outbound (20 Orders)", "Returns (270 Mov)", "Total Mass", "Operating Efficiency", "Total Capacity", "Occupied", "Available", "Total Revenue (EGP)", "Total Movements", "Inbound Qty", "Outbound Qty"],
-                h: ["General Mass Vision", "Detailed Storage Analysis", "Alert: Critical Overload", "Reform Vision", "Vacation Balance Analysis", "Return Innovation", "A-Z Customer Challenge", "Load Balancing Justice", "Strategic Customer Analysis", "Batch Governance (Allow Batch)", "Smart Fleet License System", "Pending To-Bill Orders Dilemma", "MTS-MED Performance Analysis", "Future Vision & Trend Analysis"],
+                k: ["Outbound (20 Orders)", "Returns (270 Mov)", "Total Mass", "Operating Efficiency", "Total Capacity", "Occupied", "Available", "Total Revenue (EGP)", "Activity Revenue", "Storage Revenue"],
+                h: ["General Mass Vision", "Detailed Storage Analysis", "Alert: Critical Overload", "Reform Vision", "Consumed Annual Leaves Analysis", "Return Innovation", "A-Z Customer Challenge", "Load Balancing Justice", "Strategic Customer Analysis", "Batch Governance (Allow Batch)", "Smart Fleet License System", "Pending To-Bill Orders Dilemma", "MTS-MED Profitability Analysis (Gross vs Net)", "Net Profit Optimization Strategy"],
                 p: [
                     "Row-by-row analysis shows 99.1% effort on Outbound. Returns represent administrative pressure (270 mov) vs small physical mass, requiring system innovation.",
                     "Total capacity stands at 440 PP. Raw Materials (144 PP) have 68% occupancy. Finished Goods (216 PP) have 24% occupancy, and Damage zone holds 21 PP. 268 Pallet Positions (PP) are a 'Strategic Asset' ready for future expansion.",
                     "Ahmed Youssef carries 59.2% of total productivity. This concentration is a high strategic risk requiring immediate delegation.",
                     "Vision: Initiated a balance plan by transferring 20% of inbound load and qualifying backups to ensure 100% continuity.",
-                    "Ahmed Youssef used (28%) of balance, Tarek (23%). Distribution is balanced, ensuring year-round coverage without operational gaps.",
+                    "According to the Annual leave records, the team consumed a total of 22 days. Mostafa Idrees leads with 6 days, followed by Ahmed Youssef with 5 days, while Salah Hassan has the lowest consumption with 1 day. Current distribution ensures operational flexibility.",
                     "Innovation: Used (Set Source Warehouse) to return items directly to Damage WH, preserving original batch dates and eliminating Stock Transfer steps.",
                     "A-Z Customer tried returning items not issued by us. Resolution: Implementing a 'Return-Allowed List' to enforce governance.",
                     "Delegated Mostafa for 'Trip Distribution Schedule'. This fair system boosted team morale by ensuring equal opportunities.",
@@ -293,17 +305,22 @@
                     "Standardizing batch processing via (Allow Batch Number) to ensure return flow without compromising dates or manual edits.",
                     "Fleet module with auto-notifications: 30-day early alert and 10-day final reminder via system & email to ensure compliance.",
                     "270 orders remain stuck in (To Bill) status despite physical completion. Impact: This creates inventory inaccuracies and distorts productivity KPIs. Recommendation: Enforce immediate status updates to (Complete) upon physical execution.",
-                    "Successfully achieved a total revenue of 84,188.5 EGP from MTS-MED, managing 65,992 movements. Analysis reflects a diverse range of activities including storage, repacking, QC, and transport, showcasing full operational trust.",
-                    "Current trend shows strong stability in Oct and Dec, leaning towards relative calm in Jan and Feb. Vision: Account follows a seasonal upward trend; aiming to boost Value-Added Services to ensure steady financial flow during low-shipment periods."
+                    "Profitability analysis shows Transportation revenue (18,300 EGP) is 'Gross Revenue' subject to high operational costs, not net profit. Storage (24,150 EGP) remains the true profit driver, benefiting from the rate hike to 600 EGP in Jan.",
+                    "Strategic Vision: We must enforce a 'Minimum Storage Charge' to protect fixed-cost margins during low-stock periods. For Transportation, the focus is on optimizing the gap between gross revenue and fuel/maintenance costs."
                 ],
-                l: { out: "Outbound", ret: "Return", in: "Inbound", qty: "Qty", days: "Days", used: "Used", free: "Free", grnd: "Ground", high: "High", rev: "Revenue" }
+                l: { out: "Outbound", ret: "Return", in: "Inbound", qty: "Qty", days: "Days", used: "Used", free: "Free", grnd: "Ground", high: "High", rev: "Revenue", st: "Storage", act: "Activity", pp: "PP", trans: "Transp.", pick: "Picking", h_in: "H-Inbound", h_out: "H-Outbound", qc: "QC", repack: "Repack", stretch: "Stretch", act_title: "Monthly Activity Detail (Transp. is Top Rev)" }
             }
         };
 
         let charts = {};
 
         function getCfg(L, title) {
-            return { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: title, color: '#c6a664' }, legend: { labels: { color: '#888', font: { size: 10 } } } },
+            return { responsive: true, maintainAspectRatio: false, 
+                plugins: { 
+                    title: { display: true, text: title, color: '#c6a664', font: { size: 14, weight: 'bold' } }, 
+                    legend: { labels: { color: '#888', font: { size: 10 } } }, 
+                    datalabels: { display: false } 
+                },
                 scales: { y: { stacked: true, beginAtZero: true, ticks: { color: '#888' }, grid: { color: '#1a1a1a' } }, x: { ticks: { color: '#888' }, grid: { display: false } } }
             };
         }
@@ -312,17 +329,21 @@
 
         function drawAll(L) {
             Object.values(charts).forEach(c => { if(c) c.destroy(); });
-            charts.c1 = new Chart(document.getElementById('c1'), { type: 'bar', data: { labels: L==='ar'?['صادر','مرتجع']:['Out','Ret'], datasets: [{ label: lexicon[L].l.qty, data: [716757, 6218], backgroundColor: ['#1b5e20', '#b71c1c'] }] }, options: getCfg(L, "") });
+            charts.c1 = new Chart(document.getElementById('c1'), { type: 'bar', data: { labels: L==='ar'?['صادر','مرتجع']:['Out','Ret'], datasets: [{ label: lexicon[L].l.qty, data: [716757, 6218], backgroundColor: ['#1b5e20', '#ff0000'] }] }, options: getCfg(L, "") });
             charts.c_detail = new Chart(document.getElementById('c_detail'), { type: 'bar', data: { labels: L==='ar'?['روماتريال','فينش جود','دامدج']:['Raw Mat','Finished','Damage'], datasets: [{ label: lexicon[L].l.used + ' (' + lexicon[L].l.grnd + ')', data: [26, 9, 3], backgroundColor: '#c6a664' }, { label: lexicon[L].l.used + ' (' + lexicon[L].l.high + ')', data: [72, 44, 18], backgroundColor: '#8e7340' }, { label: lexicon[L].l.free, data: [46, 163, 59], backgroundColor: '#8e4a2d' }] }, options: getCfg(L, L==='ar'?'تحليل المواقع (أرضي/علوي)':'Location Analysis (Ground/High)') });
-            charts.c_total = new Chart(document.getElementById('c_total'), { type: 'doughnut', data: { labels: [lexicon[L].l.used, lexicon[L].l.free], datasets: [{ data: [172, 268], backgroundColor: ['#c6a664', '#8e4a2d'], borderColor: '#1a1a1a' }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: L==='ar'?'نسبة الإشغال الكلية':'Total Occupancy', color: '#fff' } } } });
+            charts.c_total = new Chart(document.getElementById('c_total'), { type: 'doughnut', data: { labels: [lexicon[L].l.used, lexicon[L].l.free], datasets: [{ data: [172, 268], backgroundColor: ['#c6a664', '#8e4a2d'], borderColor: '#1a1a1a' }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: L==='ar'?'نسبة الإشغال الكلية':'Total Occupancy', color: '#fff' }, datalabels: { display: true, color: '#fff', font: { weight: 'bold', size: 14 }, formatter: (value, ctx) => { let sum = 0; let dataArr = ctx.chart.data.datasets[0].data; dataArr.map(data => { sum += data; }); return (value*100 / sum).toFixed(1)+"%"; } } } } });
+
             charts.c3 = new Chart(document.getElementById('c3'), { type: 'bar', data: { labels: ['A.Youssef', 'Ayman', 'Salah'], datasets: [{ label: lexicon[L].l.in, data: [652175, 95639, 0], backgroundColor: '#c6a664' }, { label: lexicon[L].l.out, data: [210616, 238962, 260000], backgroundColor: '#8e7340' }] }, options: getCfg(L, "") });
             charts.c4 = new Chart(document.getElementById('c4'), { type: 'bar', data: { labels: ['Shabban', 'Tarek', 'Salah'], datasets: [{ label: 'Qty', data: [543290, 500365, 413737], backgroundColor: '#c6a664' }] }, options: getCfg(L, "") });
-            charts.cvac = new Chart(document.getElementById('cvac'), { type: 'bar', data: { labels: ['A.Youssef', 'Ayman', 'Tarek', 'Salah', 'Shabban'], datasets: [{ label: lexicon[L].l.days, data: [6, 2, 5, 3, 4], backgroundColor: '#c6a664' }] }, options: getCfg(L, "") });
-            charts.ccust = new Chart(document.getElementById('ccust'), { type: 'bar', data: { labels: ['Pharma Overseas', 'Ibn Sina', 'Al-Howeidy', 'Egyptian Co', 'A-Z'], datasets: [ { label: lexicon[L].l.out, data: [392556, 149945, 100000, 53636, 20600], backgroundColor: '#c6a664' }, { label: lexicon[L].l.ret, data: [2704, 2924, 0, 331, 259], backgroundColor: '#b71c1c' } ] }, options: { ...getCfg(L, ""), indexAxis: 'y' } });
+            charts.cvac = new Chart(document.getElementById('cvac'), { type: 'bar', data: { labels: ['Ahmed Youssef', 'Ayman Salah', 'Mohamed Shaaban', 'Mostafa Idrees', 'Salah Hassan', 'Tarek Sayed'], datasets: [{ label: lexicon[L].l.days, data: [5, 3, 3, 6, 1, 4], backgroundColor: '#c6a664', borderColor: '#fff', borderWidth: 1 }] }, options: { ...getCfg(L, ""), plugins: { ...getCfg(L, "").plugins, datalabels: { display: true, color: '#fff', anchor: 'end', align: 'top' } } } });
+            charts.ccust = new Chart(document.getElementById('ccust'), { type: 'bar', data: { labels: ['Pharma Overseas', 'Ibn Sina', 'Al-Howeidy', 'Egyptian Co', 'A-Z'], datasets: [ { label: lexicon[L].l.out, data: [392556, 149945, 100000, 53636, 20600], backgroundColor: '#c6a664', barThickness: 20 }, { label: lexicon[L].l.ret, data: [2704, 2924, 0, 331, 259], backgroundColor: '#ff0000', barThickness: 20 } ] }, options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: lexicon[L].h[8], color: '#c6a664' }, legend: { labels: { color: '#888' } }, datalabels: { display: true, color: '#fff', font: { size: 10, weight: 'bold' }, anchor: 'end', align: 'right' } }, scales: { x: { ticks: { color: '#888' }, grid: { color: '#1a1a1a' } }, y: { ticks: { color: '#888' }, grid: { display: false } } } } });
             
-            // 3PL Specific Charts for MTS-MED
-            charts.c3pl_rev = new Chart(document.getElementById('c3pl_rev'), { type: 'line', data: { labels: ['Aug','Sep','Oct','Nov','Dec','Jan','Feb'], datasets: [{ label: lexicon[L].l.rev, data: [4717.5, 12590, 14825, 12675, 15845, 13587, 9949], borderColor: '#c6a664', tension: 0.3, fill: true, backgroundColor: 'rgba(198, 166, 100, 0.1)' }] }, options: getCfg(L, L==='ar'?'نمط الإيرادات الشهري':'Monthly Revenue Trend') });
-            charts.c3pl_mix = new Chart(document.getElementById('c3pl_mix'), { type: 'bar', data: { labels: ['Aug','Sep','Oct','Nov','Dec','Jan','Feb'], datasets: [{ label: lexicon[L].l.in, data: [7182, 20628, 0, 0, 6635, 0, 0], backgroundColor: '#c6a664' }, { label: lexicon[L].l.out, data: [1213, 8560, 3792, 0, 3441, 5907, 2946], backgroundColor: '#8e7340' }, { label: lexicon[L].l.ret, data: [0, 0, 3058, 2630, 0, 0, 0], backgroundColor: '#b71c1c' }] }, options: getCfg(L, L==='ar'?'مقارنة الحركة (وارد/صادر/مرتجع)':'Movement Mix (In/Out/Ret)') });
+            charts.c3pl_rev = new Chart(document.getElementById('c3pl_rev'), { type: 'line', data: { labels: ['Aug-25','Sep-25','Oct-25','Nov-25','Dec-25','Jan-26','Feb-26'], datasets: [{ label: lexicon[L].l.rev, data: [1350, 3600, 4050, 3150, 3600, 4800, 3600], borderColor: '#c6a664', tension: 0.3, fill: true, backgroundColor: 'rgba(198, 166, 100, 0.1)' }] }, options: getCfg(L, L==='ar'?'نمط إيرادات التخزين الشهري':'Monthly Storage Revenue Trend') });
+            charts.c3pl_mix = new Chart(document.getElementById('c3pl_mix'), { type: 'bar', data: { labels: ['Aug','Sep','Oct','Nov','Dec','Jan','Feb'], datasets: [{ label: lexicon[L].l.in, data: [7182, 20628, 0, 0, 6635, 0, 0], backgroundColor: '#c6a664' }, { label: lexicon[L].l.out, data: [1213, 8560, 3792, 0, 3441, 5907, 2946], backgroundColor: '#8e7340' }, { label: lexicon[L].l.ret, data: [0, 0, 3058, 2630, 0, 0, 0], backgroundColor: '#ff0000' }] }, options: getCfg(L, L==='ar'?'مقارنة الحركة (وارد/صادر/مرتجع)':'Movement Mix (In/Out/Ret)') });
+            charts.c3pl_storage_vol = new Chart(document.getElementById('c3pl_storage_vol'), { type: 'line', data: { labels: ['Aug','Sep','Oct','Nov','Dec','Jan','Feb'], datasets: [{ label: lexicon[L].l.pp, data: [3, 8, 9, 7, 8, 8, 6], borderColor: '#8e4a2d', backgroundColor: '#8e4a2d', pointRadius: 5 }] }, options: getCfg(L, L==='ar'?'حجم التخزين (عدد البالتات)':'Storage Volume (PP Count)') });
+            charts.c3pl_rev_split = new Chart(document.getElementById('c3pl_rev_split'), { type: 'pie', data: { labels: [lexicon[L].l.st, lexicon[L].l.act], datasets: [{ data: [24150, 35888.5], backgroundColor: ['#c6a664', '#ff0000'], borderColor: '#000', borderWidth: 2 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: L==='ar'?'توزيع الإيراد %':'Revenue Split %', color: '#fff' }, legend: { position: 'bottom', labels: { color: '#fff' } }, datalabels: { display: true, color: '#fff', font: { weight: 'bold', size: 12 }, formatter: (value, ctx) => { let sum = 0; let dataArr = ctx.chart.data.datasets[0].data; dataArr.map(data => { sum += data; }); return (value*100 / sum).toFixed(1)+"%"; } } } } });
+
+            charts.c3pl_act_monthly = new Chart(document.getElementById('c3pl_act_monthly'), { type: 'bar', data: { labels: ['Aug','Sep','Oct','Nov','Dec','Jan','Feb'], datasets: [ { label: lexicon[L].l.trans, data: [1600, 4700, 2100, 2500, 4800, 2100, 2600], backgroundColor: '#c6a664' }, { label: lexicon[L].l.h_in, data: [315, 435, 125, 175, 154, 0, 0], backgroundColor: '#1b5e20' }, { label: lexicon[L].l.h_out, data: [52.5, 180, 100, 0, 91, 462, 119], backgroundColor: '#ff0000' }, { label: lexicon[L].l.pick, data: [0, 0, 0, 0, 0, 40, 30], backgroundColor: '#0277bd' }, { label: lexicon[L].l.qc, data: [0, 0, 100, 100, 0, 0, 0], backgroundColor: '#f9a825' }, { label: lexicon[L].l.repack, data: [50, 75, 200, 400, 0, 375, 0], backgroundColor: '#6a1b9a' } ] }, options: { ...getCfg(L, lexicon[L].l.act_title), plugins: { ...getCfg(L, lexicon[L].l.act_title).plugins, datalabels: { display: true, color: '#fff', font: { size: 9 }, anchor: 'end', align: 'top', formatter: (value) => value > 500 ? value : '' } } } });
         }
 
         function nav(id, el) {
@@ -335,35 +356,23 @@
         }
 
         function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
-
-        function swap() {
-            curr = (curr === 'ar' ? 'en' : 'ar');
-            document.getElementById('master').className = curr;
-            document.querySelector('.btn-lang').innerText = (curr === 'ar' ? 'English' : 'العربية');
-            updateUI();
-        }
+        function swap() { curr = (curr === 'ar' ? 'en' : 'ar'); document.getElementById('master').className = curr; document.querySelector('.btn-lang').innerText = (curr === 'ar' ? 'English' : 'العربية'); updateUI(); }
 
         function updateUI() {
             const d = lexicon[curr];
             document.getElementById('u-title').innerText = d.t;
             document.getElementById('lbl-up').innerText = d.up;
             for(let i=1; i<=8; i++) document.getElementById('m'+i).innerText = d.m[i-1];
-            for(let i=1; i<=7; i++) { if(document.getElementById('k'+i)) document.getElementById('k'+i).innerText = d.k[i-1]; }
+            for(let i=1; i<=4; i++) { if(document.getElementById('k'+i)) document.getElementById('k'+i).innerText = d.k[i-1]; }
             
-            // 3PL Update UI
-            document.getElementById('k8-1').innerText = d.k[7];
-            document.getElementById('k8-2').innerText = d.k[8];
-            document.getElementById('k8-3').innerText = d.k[9];
-            document.getElementById('k8-4').innerText = d.k[10];
-            document.getElementById('h8-1').innerText = d.h[12];
-            document.getElementById('ap8-1').innerText = d.p[12];
-            document.getElementById('h8-2').innerText = d.h[13];
-            document.getElementById('ap8-2').innerText = d.p[13];
+            document.getElementById('k5').innerText = d.k[4]; document.getElementById('k6').innerText = d.k[5]; document.getElementById('k7').innerText = d.k[6];
+            document.getElementById('k8-1').innerText = d.k[7]; document.getElementById('k8-2').innerText = d.k[8]; document.getElementById('k8-3').innerText = d.k[9];
 
+            document.getElementById('h8-1').innerText = d.h[12]; document.getElementById('ap8-1').innerText = d.p[12]; document.getElementById('h8-2').innerText = d.h[13]; document.getElementById('ap8-2').innerText = d.p[13];
             document.getElementById('h1').innerText = d.h[0]; document.getElementById('ap1').innerText = d.p[0];
             document.getElementById('h2').innerText = d.h[1]; document.getElementById('ap2').innerText = d.p[1];
             document.getElementById('at3-r').innerText = d.h[2]; document.getElementById('ap3-r').innerText = d.p[2];
-            document.getElementById('at3-v').innerText = d.h[3]; document.getElementById('ap3-v').innerText = d.p[3];
+            document.getElementById('h3-v').innerText = d.h[3]; document.getElementById('ap3-v').innerText = d.p[3];
             document.getElementById('h4').innerText = d.h[4]; document.getElementById('ap4').innerText = d.p[4];
             document.getElementById('h5-1').innerText = d.h[5]; document.getElementById('ap5-1').innerText = d.p[5];
             document.getElementById('h5-2').innerText = d.h[6]; document.getElementById('ap5-2').innerText = d.p[6];
